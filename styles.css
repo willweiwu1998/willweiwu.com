@@ -13,7 +13,15 @@ img{display:block;max-width:100%}
 .site-nav a{color:#555;white-space:nowrap}
 .site-nav a:hover,.site-nav a.active{color:#000}
 .site-nav a.active{font-weight:600}
-.menu-toggle{display:none;min-width:44px;min-height:44px;padding:8px;border:0;background:transparent;font:600 .9rem Arial,sans-serif;cursor:pointer;touch-action:manipulation}
+.menu-toggle{display:none;width:44px;height:44px;padding:10px;border:0;background:transparent;color:transparent;font-size:0;cursor:pointer;touch-action:manipulation;place-items:center;position:relative}
+.menu-toggle::before,.menu-toggle::after{content:"";position:absolute;width:24px;height:2px;background:#222;border-radius:2px;transition:transform .2s ease,box-shadow .15s ease}
+.menu-toggle::before{transform:translateY(-7px);box-shadow:0 7px 0 #222}
+.menu-toggle::after{transform:translateY(7px)}
+.menu-toggle[aria-expanded="true"]::before{transform:rotate(45deg);box-shadow:none}
+.menu-toggle[aria-expanded="true"]::after{transform:rotate(-45deg)}
+main{animation:page-fade-in .28s ease both;transition:opacity .18s ease,transform .18s ease}
+body.page-leaving main{opacity:0;transform:translateY(4px)}
+@keyframes page-fade-in{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
 .home-main{display:grid;grid-template-columns:255px 1fr;gap:72px;padding-block:64px 90px}
 .profile-column{align-self:start}
 .portrait{width:230px;aspect-ratio:1/1.14;object-fit:cover;object-position:center 34%}
@@ -83,7 +91,7 @@ img{display:block;max-width:100%}
 .site-footer{min-height:84px;display:flex;align-items:center;color:var(--muted);font-size:.78rem}
 @media(max-width:900px){
   .site-header{min-height:66px}
-  .menu-toggle{display:block}
+  .menu-toggle{display:grid}
   .site-nav{display:none;position:absolute;top:66px;left:0;right:0;max-height:calc(100vh - 66px);padding:10px 24px 14px;overflow-y:auto;border-bottom:1px solid var(--line);background:#fff;flex-direction:column;align-items:flex-start;gap:0}
   .site-nav a{width:100%;min-height:44px;display:flex;align-items:center}
   .site-nav.open{display:flex}
@@ -116,3 +124,4 @@ img{display:block;max-width:100%}
   .site-footer{min-height:72px}
 }
 @media(hover:none){a:hover,.social-icons a:hover{transform:none}}
+@media(prefers-reduced-motion:reduce){main{animation:none;transition:none}.menu-toggle::before,.menu-toggle::after{transition:none}}
